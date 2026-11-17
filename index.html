@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acapulco · Plan de intervención posdesastre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#150826; --d1:#1c0b33; --d2:#2a1247; --d3:#3b1d5e; --pur:#6d3aa0;
+  --mag:#d63384; --rose:#f5a3c7; --gold:#f2b544; --org:#ff8c42;
+  --txt:#f3e9ff; --mut:#c9b3e6;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+.serif{font-family:'Cinzel',serif;text-transform:uppercase;letter-spacing:.35em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+
+/* ---- Contenedor adaptable móvil / computadora ---- */
+.wrap{width:min(840px, 100% - 3.5rem);margin-inline:auto}
+@media(max-width:768px){.wrap{width:min(680px, 100% - 2.5rem)}}
+
+/* ---- barra progreso + nav ---- */
+#progress{position:fixed;inset:0 auto auto 0;height:3px;width:0;z-index:99;background:linear-gradient(90deg,var(--gold),var(--org),var(--mag));box-shadow:0 0 10px rgba(242,181,68,.9)}
+nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:calc(.65rem + var(--sat)) 2rem .65rem;background:rgba(21,8,38,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(242,181,68,.25)}
+nav .brand{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.4em;color:var(--gold)}
+nav .brand b{color:var(--rose);font-weight:400}
+nav ul{display:flex;gap:.8rem;list-style:none}
+nav ul a{font-size:.65rem;letter-spacing:.15em;color:var(--mut);border:1px solid rgba(245,163,199,.25);border-radius:999px;padding:.22rem .65rem;transition:.25s}
+nav ul a:hover{color:var(--gold);border-color:var(--gold);background:rgba(242,181,68,.08)}
+@media(max-width:560px){nav{padding:calc(.55rem + var(--sat)) 1rem .55rem;} nav ul{gap:.55rem;} nav ul a{padding:.14rem .38rem}}
+
+/* ---- hero tormenta ---- */
+.hero{position:relative;min-height:100svh;overflow:hidden;background:#0d0518}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+#rain{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+#flash{position:absolute;inset:0;background:#f8f2ff;opacity:0;mix-blend-mode:screen;z-index:4;pointer-events:none}
+.hero-content{position:relative;z-index:5;text-align:center;padding:32svh 1rem 0;max-width:900px;margin-inline:auto}
+.hero-kicker{font-size:clamp(.68rem,1.2vw,.82rem);letter-spacing:.55em;color:var(--rose);margin-bottom:1rem;animation:fadeUp 1.4s .4s both}
+h1.hero-title{font-family:'Cinzel',serif;font-size:clamp(3rem,12vw,8.5rem);letter-spacing:.22em;line-height:1;color:#fff;text-shadow:0 0 35px rgba(214,51,132,.65),0 0 90px rgba(109,58,160,.7);animation:titleIn 2.4s .2s both,shakeT 5s 2.6s infinite}
+.hero-sub{margin-top:1.1rem;font-size:clamp(.85rem,2vw,1.15rem);letter-spacing:.25em;color:var(--mut);animation:fadeUp 1.4s 1s both}
+.hero-hint{position:absolute;bottom:calc(1.5rem + var(--sab));left:0;right:0;z-index:5;text-align:center;font-size:.65rem;letter-spacing:.45em;color:var(--mut);animation:bob 2.4s ease-in-out infinite}
+.scroll-line{display:block;width:1px;height:48px;margin:.6rem auto 0;background:linear-gradient(var(--gold),transparent)}
+
+/* ---- secciones / transición de paleta ---- */
+section{position:relative;padding:6.5rem 0 5rem}
+@media(max-width:768px){section{padding:5rem 0 calc(4rem + var(--sab))}}
+.t1{background:linear-gradient(180deg,#0d0518,#1c0b33)}
+.t2{background:linear-gradient(180deg,#1c0b33,#2a1247)}
+.t3{background:linear-gradient(180deg,#2a1247,#3b1d5e)}
+.t4{background:linear-gradient(180deg,#3b1d5e,#4a2569)}
+.t5{background:linear-gradient(180deg,#4a2569,#5c2f74)}
+.t6{background:linear-gradient(180deg,#5c2f74,#6d3a7e)}
+.t7{background:linear-gradient(180deg,#6d3a7e,#7e4382)}
+.t8{background:linear-gradient(180deg,#7e4382,#8f4c83 60%,#a85577)}
+.t9{background:linear-gradient(180deg,#a85577,#c76b6e 55%,#e88a63)}
+
+.eyebrow{font-size:.68rem;letter-spacing:.5em;color:var(--gold);margin-bottom:1rem}
+h2{font-family:'Cinzel',serif;font-size:clamp(1.5rem,4vw,2.6rem);letter-spacing:.18em;line-height:1.3;color:#fff;margin-bottom:1.2rem}
+.lead{color:var(--mut);font-size:clamp(1rem,1.2vw,1.12rem);max-width:760px}
+.lead b{color:var(--rose);font-weight:400}
+
+/* contadores */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.8rem;max-width:720px}
+.stat{border:1px solid rgba(242,181,68,.35);border-radius:16px;padding:1.4rem .8rem;text-align:center;background:rgba(59,29,94,.45);box-shadow:0 12px 35px rgba(0,0,0,.35);transition:transform .3s}
+.stat:hover{transform:translateY(-3px)}
+.stat .num{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4.5vw,2.8rem);color:var(--gold);text-shadow:0 0 18px rgba(242,181,68,.6)}
+.stat .lbl{font-size:.65rem;letter-spacing:.18em;color:var(--mut);margin-top:.3rem;text-transform:uppercase}
+
+/* escenas responsivas para computadora */
+.scene{position:relative;width:100%;height:clamp(360px, 34vw, 520px);margin:1.5rem 0 3rem;overflow:hidden;border-top:1px solid rgba(242,181,68,.35);border-bottom:1px solid rgba(242,181,68,.35);box-shadow:inset 0 0 50px rgba(0,0,0,.7)}
+.scene svg{position:absolute;inset:-6% 0;width:100%;height:112%}
+.cap{position:absolute;left:0;right:0;bottom:.9rem;z-index:6;text-align:center;font-size:.62rem;letter-spacing:.45em;color:rgba(243,233,255,.85);text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+
+/* tarjetas adaptadas a desktop */
+.card{position:relative;border:1px solid rgba(242,181,68,.45);border-radius:20px;padding:2rem 2.2rem 1.8rem;background:linear-gradient(160deg,rgba(59,29,94,.88),rgba(28,11,51,.94));box-shadow:0 25px 70px rgba(0,0,0,.55),inset 0 0 70px rgba(214,51,132,.08);transition:transform .3s, box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 30px 80px rgba(0,0,0,.65),inset 0 0 80px rgba(214,51,132,.12)}
+.card::before,.card::after{content:"";position:absolute;width:28px;height:28px;border:2px solid var(--gold);opacity:.9}
+.card::before{top:11px;left:11px;border-right:none;border-bottom:none;border-radius:10px 0 0 0}
+.card::after{bottom:11px;right:11px;border-left:none;border-top:none;border-radius:0 0 10px 0}
+.card-head{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.2rem}
+.gem{flex:none;width:56px;height:56px;display:grid;place-items:center;font-family:'Cinzel',serif;font-size:1.4rem;color:#2a1247;background:linear-gradient(135deg,var(--gold),var(--org));transform:rotate(45deg);border-radius:14px;box-shadow:0 0 26px rgba(242,181,68,.65),inset 0 0 0 3px rgba(255,255,255,.4)}
+.gem span{transform:rotate(-45deg)}
+.card h3{font-family:'Cinzel',serif;font-size:clamp(1.05rem,1.4vw,1.25rem);letter-spacing:.12em;line-height:1.5;color:#fff}
+.obj{color:var(--rose);font-size:1.02rem;margin-bottom:1.2rem}
+.obj strong{color:var(--gold);font-weight:500;letter-spacing:.08em}
+.acts{list-style:none;margin-bottom:1.3rem}
+.acts li{position:relative;padding:.45rem 0 .45rem 1.5rem;color:var(--mut);font-size:1rem;border-bottom:1px dashed rgba(245,163,199,.2)}
+.acts li::before{content:"";position:absolute;left:.15rem;top:1rem;width:.5rem;height:.5rem;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 8px rgba(242,181,68,.9)}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tags span{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(242,181,68,.45);border-radius:999px;padding:.26rem .8rem;background:rgba(242,181,68,.08)}
+
+/* cierre */
+.closer{text-align:center;padding-top:8rem;padding-bottom:2rem}
+.sunline{width:140px;height:1px;margin:2.2rem auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.phrase{font-family:'Cinzel',serif;font-size:clamp(1.4rem,4.5vw,2.4rem);letter-spacing:.3em;color:#fff;text-shadow:0 0 35px rgba(255,140,66,.7);margin-bottom:1.2rem}
+.closer p{color:#fdf0e3;opacity:.85;font-size:1.05rem;max-width:38rem;margin:0 auto}
+footer{padding:3.5rem 2rem calc(2.8rem + var(--sab));text-align:center;font-size:.65rem;letter-spacing:.35em;color:rgba(243,233,255,.55)}
+
+/* reveals */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ===== animaciones ===== */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinR{to{transform:rotate(-360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes titleIn{0%{opacity:0;filter:blur(18px);transform:scale(1.06)}60%{filter:blur(4px)}100%{opacity:1;filter:blur(0);transform:scale(1)}}
+@keyframes shakeT{0%,88%,100%{transform:translate(0,0)}90%{transform:translate(2px,-1px)}92%{transform:translate(-2px,1px)}94%{transform:translate(1px,1px)}96%{transform:translate(-1px,-1px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes flick{0%,100%{opacity:1}45%{opacity:1}50%{opacity:.35}55%{opacity:1}78%{opacity:.6}82%{opacity:1}}
+@keyframes glowPulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes drift{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
+@keyframes waveX{from{transform:translateX(0)}to{transform:translateX(-720px)}}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+@keyframes dropFall{0%{transform:translateY(0);opacity:0}12%{opacity:1}82%{opacity:1}100%{transform:translateY(160px);opacity:0}}
+@keyframes waterUp{0%{transform:translateY(58px)}55%{transform:translateY(8px)}100%{transform:translateY(58px)}}
+@keyframes clearUp{0%,30%{fill:#7a582c}55%{fill:#69a2bc}100%{fill:#7a582c}}
+@keyframes ringPulse{0%{transform:scale(.3);opacity:.95}100%{transform:scale(2.1);opacity:0}}
+@keyframes tagIn{0%{opacity:0;transform:scale(.4) rotate(-14deg)}70%{transform:scale(1.15) rotate(4deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes snowF{0%{transform:translate(0,-20px);opacity:0}10%{opacity:1}100%{transform:translate(-30px,240px);opacity:0}}
+@keyframes sparkF{0%,100%{opacity:0}8%{opacity:1}12%{opacity:.3}16%{opacity:1}30%{opacity:0}46%{opacity:1}52%{opacity:0}}
+@keyframes switchFlip{0%,42%{transform:rotate(0)}58%,88%{transform:rotate(-38deg)}100%{transform:rotate(0)}}
+@keyframes rubbleDown{0%{transform:scaleY(1)}55%{transform:scaleY(.16)}80%{transform:scaleY(.16)}100%{transform:scaleY(1)}}
+@keyframes routeRun{from{stroke-dashoffset:640}to{stroke-dashoffset:0}}
+@keyframes beamGlow{0%,100%{opacity:.2}50%{opacity:.85}}
+@keyframes sheetFly{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translate(-280px,-180px) rotate(280deg);opacity:0}}
+@keyframes crackGlow{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes craneBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes foam{0%,100%{opacity:.25}50%{opacity:.75}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="brand">ACAPULCO <b>·</b> 24–72H</div>
+  <ul>
+    <li><a href="#a1">I</a></li><li><a href="#a2">II</a></li><li><a href="#a3">III</a></li>
+    <li><a href="#a4">IV</a></li><li><a href="#a5">V</a></li><li><a href="#a6">VI</a></li>
+    <li><a href="#a7">VII</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO: EL DESASTRE ============ -->
+<header class="hero" id="top">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0a0314"/><stop offset=".5" stop-color="#190a30"/><stop offset="1" stop-color="#321652"/>
+      </linearGradient>
+      <linearGradient id="seaH" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#321652"/><stop offset="1" stop-color="#0e051a"/>
+      </linearGradient>
+      <radialGradient id="eyeH" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#8a4b8f" stop-opacity=".95"/><stop offset=".6" stop-color="#5c2966" stop-opacity=".6"/><stop offset="1" stop-color="#190a30" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="lightningG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#f3e9ff"/><stop offset="1" stop-color="#f5a3c7"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#skyH)"/>
+    <g class="plx" data-sp="0.15" style="transform-origin:720px 250px">
+      <circle cx="720" cy="250" r="280" fill="url(#eyeH)"/>
+      <g style="transform-origin:720px 250px;animation:spin 42s linear infinite">
+        <g fill="none" stroke="#7e3fa8" stroke-width="28" stroke-linecap="round" opacity=".55">
+          <path d="M720 250 m-40 0 a40 40 0 1 1 80 0 a75 75 0 1 1 -150 0 a115 115 0 1 1 230 0 a170 170 0 1 1 -340 0 a230 230 0 1 1 460 0"/>
+        </g>
+        <g fill="none" stroke="#b862d8" stroke-width="12" stroke-linecap="round" opacity=".45" transform="rotate(32 720 250)">
+          <path d="M720 250 m-52 0 a52 52 0 1 1 104 0 a95 95 0 1 1 -190 0 a148 148 0 1 1 296 0 a204 204 0 1 1 -408 0"/>
+        </g>
+      </g>
+      <circle cx="720" cy="250" r="30" fill="#0d0518" stroke="#f5a3c7" stroke-width="4" opacity=".95"/>
+      <circle cx="720" cy="250" r="14" fill="#f2b544" opacity=".85" style="animation:flick 2.5s infinite"/>
+    </g>
+    <g class="plx" data-sp="0.25" opacity=".75" style="animation:drift 10s ease-in-out infinite alternate">
+      <ellipse cx="220" cy="150" rx="240" ry="54" fill="#200d3d"/><ellipse cx="1200" cy="130" rx="280" ry="60" fill="#200d3d"/>
+      <ellipse cx="720" cy="85" rx="360" ry="66" fill="#180730"/>
+    </g>
+    <g id="bolt" opacity="0">
+      <polygon points="690,100 650,280 695,270 630,480 740,260 685,275 720,100" fill="url(#lightningG)" filter="drop-shadow(0 0 16px #f5a3c7)"/>
+      <polygon points="650,280 620,380 645,370 605,460 660,350 635,360" fill="#fff" opacity=".8"/>
+    </g>
+    <g class="plx" data-sp="0.3" fill="#251042">
+      <path d="M0 560 L170 420 L330 510 L510 390 L690 530 L890 410 L1090 520 L1280 430 L1440 540 L1440 900 L0 900 Z"/>
+    </g>
+    <g class="plx" data-sp="0.45">
+      <path d="M0 630 h1440 v270 h-1440 z" fill="url(#seaH)"/>
+      <g fill="#1a0b30">
+        <rect x="110" y="550" width="50" height="100" rx="3"/><rect x="180" y="580" width="65" height="70" rx="3"/>
+        <rect x="990" y="560" width="56" height="90" rx="3"/><rect x="1070" y="590" width="76" height="60" rx="3"/>
+        <rect x="510" y="590" width="55" height="60" rx="3"/>
+      </g>
+      <g fill="none" stroke="#6d3a8a" stroke-width="4.5" opacity=".8">
+        <g style="animation:waveX 3.2s linear infinite">
+          <path d="M-720 685 q45 -24 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0"/>
+          <path d="M-720 725 q45 -20 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0" stroke="#904ca3"/>
+        </g>
+        <g style="animation:waveX 4.8s linear infinite reverse">
+          <path d="M-720 770 q45 -16 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0" stroke="#48226e"/>
+        </g>
+      </g>
+    </g>
+    <g class="plx" data-sp="0.6">
+      <path d="M0 750 h1440 v150 h-1440 z" fill="#120622"/>
+      <g fill="none" stroke="#48226e" stroke-width="5.5" opacity=".85">
+        <g style="animation:waveX 4s linear infinite"><path d="M-720 805 q60 -14 120 0 t120 0 t120 0 t120 0 t120 0 t120 0"/></g>
+      </g>
+      <g transform="rotate(-24 260 830)">
+        <rect x="250" y="650" width="16" height="190" fill="#090312" rx="2"/>
+        <rect x="226" y="638" width="64" height="14" fill="#090312" rx="3"/>
+        <circle cx="258" cy="630" r="8" fill="#f2b544" style="animation:flick 1.5s infinite"/>
+      </g>
+      <g style="animation:sheetFly 3s linear infinite">
+        <path d="M1180 690 l64 -14 -10 32 -54 8 z" fill="#9a7cb8" opacity=".9"/>
+      </g>
+      <g style="animation:sheetFly 3.9s .8s linear infinite">
+        <path d="M420 630 l52 9 -16 26 -44 -11 z" fill="#7a5d9c" opacity=".85"/>
+      </g>
+      <g style="transform-origin:130px 860px;animation:sway 2.4s ease-in-out infinite">
+        <path d="M130 860 Q155 750 120 680" fill="none" stroke="#0a0314" stroke-width="16" stroke-linecap="round"/>
+        <g fill="#0a0314">
+          <path d="M120 680 q-56 -10 -94 24 q58 8 94 -6 z"/>
+          <path d="M120 680 q-18 -54 -68 -68 q32 52 68 62 z"/>
+          <path d="M120 680 q48 -32 98 -20 q-46 28 -94 28 z"/>
+        </g>
+      </g>
+      <g style="transform-origin:1330px 862px;animation:sway 2.8s .3s ease-in-out infinite">
+        <path d="M1330 862 Q1358 762 1324 690" fill="none" stroke="#0a0314" stroke-width="16" stroke-linecap="round"/>
+        <g fill="#0a0314">
+          <path d="M1324 690 q-54 -12 -92 20 q56 10 92 -4 z"/>
+          <path d="M1324 690 q-14 -50 -60 -64 q28 48 60 56 z"/>
+        </g>
+      </g>
+      <path d="M0 900 v-55 q130 -38 275 -12 q145 26 315 5 q170 -21 345 7 q175 28 510 -10 v55 z" fill="#080210"/>
+    </g>
+    <g fill="#f2b544">
+      <circle cx="300" cy="480" r="3.2" style="animation:petal 6.5s linear infinite"/>
+      <circle cx="900" cy="360" r="2.8" style="animation:petal 8.5s 1.8s linear infinite"/>
+      <circle cx="1180" cy="540" r="3.2" style="animation:petal 7.5s 3.5s linear infinite"/>
+    </g>
+  </svg>
+  <canvas id="rain"></canvas>
+  <div id="flash"></div>
+  <div class="hero-content">
+    <p class="hero-kicker serif">Huracán Otis · Ingeniería de emergencia</p>
+    <h1 class="hero-title">Acapulco</h1>
+    <p class="hero-sub serif">Plan de intervención posdesastre · 24 a 72 horas</p>
+  </div>
+  <div class="hero-hint serif">Desliza<span class="scroll-line"></span></div>
+</header>
+
+<!-- ============ INTRODUCCIÓN ============ -->
+<section class="t1" id="intro">
+  <div class="wrap">
+    <p class="eyebrow serif rv">Acto I · El umbral</p>
+    <h2 class="rv">Del caos a la<br>recuperación</h2>
+    <p class="lead rv">El paso del huracán Otis dejó a Acapulco con <b>vialidades obstruidas</b>, <b>servicios básicos interrumpidos</b> y daños en buena parte de su infraestructura. En esas condiciones, la prioridad deja de ser reforzar estructuras y pasa a ser <b>estabilizar la ciudad</b>: reabrir accesos, restablecer lo indispensable y evitar que el desastre siga cobrando vidas. Este plan reúne las siete acciones técnicas que deben atenderse primero.</p>
+    <div class="stats">
+      <div class="stat rv"><div class="num"><span class="cnt" data-to="7">0</span></div><div class="lbl">Acciones</div></div>
+      <div class="stat rv"><div class="num"><span class="cnt" data-to="24">0</span>–<span class="cnt" data-to="72">0</span>h</div><div class="lbl">Ventana crítica</div></div>
+      <div class="stat rv"><div class="num"><span class="cnt" data-to="3">0</span></div><div class="lbl">Códigos de color</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 1 · RUTAS ============ -->
+<section class="t2" id="a1">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c0b33"/><stop offset="1" stop-color="#4a2569"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s1)"/>
+      <g class="plx" data-sp="0.12"><circle cx="1160" cy="130" r="140" fill="#7e4382" opacity=".45"/><circle cx="1160" cy="130" r="85" fill="#a85577" opacity=".4" style="animation:glowPulse 6s ease-in-out infinite"/></g>
+      <g class="plx" data-sp="0.25" fill="#2a1247"><path d="M0 330 L220 240 L430 320 L660 230 L900 330 L1140 250 L1440 330 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.4">
+        <path d="M520 620 L700 380 L760 380 L980 620 Z" fill="#200d3d"/>
+        <g stroke="#f2b544" stroke-width="6" stroke-dasharray="36 28" opacity=".9"><path d="M750 620 L728 392" style="animation:routeRun 2.4s linear infinite"/></g>
+        <path d="M750 615 L728 392 L712 392 L700 615 Z" fill="#f2b544" opacity=".4" style="animation:beamGlow 2.8s ease-in-out infinite"/>
+        <g transform="translate(652 296)">
+          <rect width="150" height="92" fill="#3b1d5e" stroke="#f2b544" stroke-width="3" rx="4"/>
+          <rect x="58" y="22" width="34" height="34" fill="#e84356" rx="4"/>
+          <rect x="69" y="12" width="12" height="54" fill="#fff" rx="2"/>
+          <rect x="52" y="33" width="48" height="12" fill="#fff" rx="2"/>
+          <rect x="14" y="62" width="28" height="26" fill="#f5a3c7" opacity=".9" style="animation:flick 3.5s infinite"/>
+          <rect x="108" y="62" width="28" height="26" fill="#f5a3c7" opacity=".9" style="animation:flick 4.2s infinite"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.55" style="animation:craneBob 3.2s ease-in-out infinite">
+        <g transform="translate(300 470)">
+          <rect x="0" y="60" width="180" height="36" rx="16" fill="#0d0518" stroke="#48226e" stroke-width="2"/>
+          <circle cx="34" cy="78" r="11" fill="#f2b544"/><circle cx="74" cy="78" r="11" fill="#f2b544"/><circle cx="114" cy="78" r="11" fill="#f2b544"/><circle cx="150" cy="78" r="11" fill="#f2b544"/>
+          <rect x="24" y="16" width="112" height="50" rx="8" fill="#e8912d"/><rect x="96" y="-2" width="54" height="44" rx="6" fill="#3b1d5e"/><rect x="104" y="6" width="36" height="26" fill="#f5a3c7" opacity=".9"/>
+          <path d="M40 24 L-52 -34" stroke="#e8912d" stroke-width="15" stroke-linecap="round"/><path d="M-52 -34 L-100 28" stroke="#e8912d" stroke-width="13" stroke-linecap="round"/><path d="M-100 28 l-18 36 28 -8 z" fill="#f2b544"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.55" style="animation:craneBob 3.2s .7s ease-in-out infinite">
+        <g transform="translate(920 480)">
+          <rect x="150" y="34" width="98" height="54" rx="8" fill="#3b1d5e"/><rect x="162" y="42" width="32" height="24" fill="#f5a3c7" opacity=".9"/>
+          <path d="M0 18 h150 v58 h-150 z" fill="#e8912d"/><circle cx="40" cy="86" r="14" fill="#0d0518"/><circle cx="116" cy="86" r="14" fill="#0d0518"/><circle cx="196" cy="92" r="12" fill="#0d0518"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.5">
+        <g transform="translate(620 500)">
+          <rect x="-8" y="0" width="14" height="110" fill="#0a0312" transform="rotate(70)" rx="2"/>
+          <g fill="#190a30"><path d="M0 40 l38 -48 22 50 z"/><path d="M40 46 l32 -32 28 34 z"/></g>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.75" style="transform-origin:1360px 620px;animation:sway 3.8s ease-in-out infinite">
+        <path d="M1360 620 Q1385 510 1352 430" fill="none" stroke="#0d0518" stroke-width="16" stroke-linecap="round"/>
+        <g fill="#0d0518">
+          <path d="M1352 430 q-58 -10 -98 24 q62 8 102 -6 z"/>
+          <path d="M1352 430 q-14 -56 -66 -70 q32 54 68 66 z"/>
+        </g>
+      </g>
+      <path d="M0 620 v-42 q210 -32 430 -13 q270 21 530 0 q270 -21 480 9 v46 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena I · La ruta se abre</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>I</span></div><h3>Apertura de rutas críticas y limpieza vial de emergencia</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Romper el aislamiento del puerto para que entren rescatistas, personal médico y suministros pesados.</p>
+      <ul class="acts">
+        <li>Brigadas con retroexcavadoras, camiones de volteo y equipo de corte.</li>
+        <li>Despeje primero de ejes viales principales y puentes afectados, bloqueados por árboles caídos, postes, láminas y deslaves.</li>
+        <li>Definir rutas críticas hacia hospitales, centros de acopio y zonas de desastre, y trabajar en ese orden antes de las colonias secundarias.</li>
+      </ul>
+      <div class="tags"><span>Rutas críticas</span><span>Retroexcavadoras</span><span>Hospitales</span><span>Puentes</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 2 · AGUA ============ -->
+<section class="t3" id="a2">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241040"/><stop offset="1" stop-color="#4a2569"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s2)"/>
+      <g class="plx" data-sp="0.15" fill="#2a1247"><path d="M0 300 L260 210 L480 290 L760 200 L1040 300 L1260 220 L1440 290 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.35">
+        <g transform="translate(180 240)">
+          <rect x="0" y="60" width="340" height="210" rx="16" fill="#3b1d5e" stroke="#f2b544" stroke-width="3.5"/>
+          <rect x="24" y="90" width="95" height="150" rx="8" fill="#200d3d" stroke="#7e3fa8" stroke-width="3"/>
+          <g fill="none" stroke="#f2b544" stroke-width="4.5" opacity=".85"><path d="M40 115 h65 M40 145 h65 M40 175 h65 M40 205 h45"/></g>
+          <path d="M260 100 h50 v170" fill="none" stroke="#e8912d" stroke-width="13" stroke-linecap="round"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.45" style="animation:craneBob 4s ease-in-out infinite">
+        <g transform="translate(880 380)">
+          <rect x="190" y="60" width="112" height="72" rx="10" fill="#3b1d5e"/><rect x="202" y="70" width="34" height="26" fill="#f5a3c7" opacity=".9"/>
+          <ellipse cx="90" cy="80" rx="102" ry="64" fill="#7fb0c9"/><ellipse cx="90" cy="80" rx="102" ry="64" fill="none" stroke="#f2b544" stroke-width="5"/>
+          <path d="M40 45 q40 -20 80 0" fill="none" stroke="#fff" stroke-width="4" opacity=".6"/>
+          <circle cx="52" cy="132" r="14" fill="#0d0518"/><circle cx="132" cy="132" r="14" fill="#0d0518"/><circle cx="236" cy="140" r="12" fill="#0d0518"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.55">
+        <g transform="translate(620 230)">
+          <rect x="-14" y="-16" width="188" height="310" rx="16" fill="none" stroke="#f2b544" stroke-width="5.5"/>
+          <rect x="-22" y="-48" width="204" height="28" rx="10" fill="#e8912d"/><rect x="-22" y="280" width="204" height="28" rx="10" fill="#e8912d"/>
+          <g style="animation:waterUp 7s ease-in-out infinite">
+            <path d="M0 24 h160 v250 h-160 z" style="animation:clearUp 7s ease-in-out infinite"/>
+            <path d="M0 24 q20 -14 40 0 t40 0 t40 0 t40 0 v12 h-160 z" style="animation:clearUp 7s ease-in-out infinite" fill-opacity=".95"/>
+          </g>
+          <g fill="#a8d8f0"><circle cx="30" cy="-75" r="7.5" style="animation:dropFall 1.4s linear infinite"/><circle cx="80" cy="-75" r="7.5" style="animation:dropFall 1.8s .4s linear infinite"/><circle cx="128" cy="-75" r="7.5" style="animation:dropFall 1.6s .8s linear infinite"/></g>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.6">
+        <g transform="translate(1150 350)"><rect width="72" height="152" rx="8" fill="#3b1d5e" stroke="#f2b544" stroke-width="3"/><rect x="26" y="30" width="20" height="36" fill="#f5a3c7" opacity=".85"/><circle cx="56" cy="60" r="4.5" fill="#f2b544"/></g>
+        <g transform="translate(1260 360)"><rect width="72" height="142" rx="8" fill="#2a1247" stroke="#7e3fa8" stroke-width="3"/><circle cx="56" cy="58" r="4.5" fill="#f2b544"/></g>
+      </g>
+      <path d="M0 620 v-36 q250 -28 500 -9 q290 22 580 0 q230 -17 360 9 v36 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena II · El agua vuelve a ser vida</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>II</span></div><h3>Agua potable de emergencia y control sanitario</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Prevenir una crisis de salud pública por enfermedades gastrointestinales, originadas por la contaminación de los mantos acuíferos y las fracturas en la red hidráulica.</p>
+      <ul class="acts">
+        <li>Instalar plantas potabilizadoras móviles de ósmosis inversa y ultrafiltración en puntos estratégicos de la ciudad.</li>
+        <li>Habilitar cloración provisional por gravedad en los tanques de almacenamiento que sigan íntegros.</li>
+        <li>Distribuir agua en pipas con monitoreo de cloro libre residual.</li>
+        <li>Colocar letrinas portátiles donde el alcantarillado colapsó por completo.</li>
+      </ul>
+      <div class="tags"><span>Ósmosis inversa</span><span>Cloración</span><span>Pipas</span><span>Letrinas</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 3 · COE ============ -->
+<section class="t4" id="a3">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1247"/><stop offset="1" stop-color="#5c2f74"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s3)"/>
+      <g class="plx" data-sp="0.12"><circle cx="720" cy="330" r="430" fill="#7e3fa8" opacity=".25"/><circle cx="720" cy="330" r="270" fill="#9a52a3" opacity=".18" style="animation:glowPulse 7s ease-in-out infinite"/></g>
+      <g class="plx" data-sp="0.25" fill="#1c0b33"><path d="M0 320 L300 240 L560 320 L860 236 L1160 320 L1440 250 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.35">
+        <g transform="translate(1090 170)">
+          <rect x="-7" y="60" width="14" height="230" fill="#0d0518"/>
+          <ellipse cx="0" cy="48" rx="72" ry="36" fill="#3b1d5e" stroke="#f2b544" stroke-width="4.5" transform="rotate(-18)"/>
+          <circle cx="0" cy="46" r="9" fill="#f2b544" style="animation:flick 2.5s infinite"/>
+          <g fill="none" stroke="#f5a3c7" stroke-width="4" style="transform-origin:0px 46px">
+            <circle cx="0" cy="46" r="38" style="animation:ringPulse 2.4s linear infinite"/>
+            <circle cx="0" cy="46" r="38" style="animation:ringPulse 2.4s .8s linear infinite"/>
+          </g>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.5">
+        <g transform="translate(300 250)">
+          <path d="M0 300 L170 60 L340 300 Z" fill="#3b1d5e" stroke="#f2b544" stroke-width="4"/><path d="M170 60 L170 300" stroke="#f2b544" stroke-width="3.5" opacity=".7"/><path d="M118 300 L170 150 L222 300 Z" fill="#190a30"/>
+          <g transform="translate(390 220)"><rect width="186" height="124" rx="12" fill="#e8912d"/><rect x="18" y="18" width="64" height="46" rx="6" fill="#2a1247"/><circle cx="132" cy="42" r="13" fill="#f2b544" style="animation:flick 2s infinite"/><rect x="18" y="80" width="150" height="12" fill="#0d0518" opacity=".6"/></g>
+          <path d="M140 96 Q460 190 780 120" fill="none" stroke="#f2b544" stroke-width="2.5" opacity=".7"/>
+          <g fill="#ffe099"><circle cx="230" cy="122" r="6.5" style="animation:flick 2.8s infinite"/><circle cx="360" cy="146" r="6.5" style="animation:flick 2.2s .3s infinite"/><circle cx="500" cy="152" r="6.5" style="animation:flick 3.4s .7s infinite"/></g>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.6">
+        <g transform="translate(880 430)">
+          <g transform="skewX(-18)"><rect width="220" height="90" rx="8" fill="#200d3d" stroke="#7e3fa8" stroke-width="3"/><path d="M0 30 h220 M0 60 h220 M55 0 v90 M110 0 v90 M165 0 v90" stroke="#7e3fa8" stroke-width="3"/></g>
+          <rect x="100" y="88" width="14" height="60" fill="#0d0518"/>
+        </g>
+      </g>
+      <path d="M0 620 v-38 q310 -32 630 -11 q350 21 810 -5 v54 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena III · El mando regresa</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>III</span></div><h3>Centros de mando con energía autónoma y telecomunicaciones tácticas</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Recuperar el control operativo, la coordinación entre instituciones y la toma de decisiones de los cuerpos de emergencia.</p>
+      <ul class="acts">
+        <li>Montar centros de operaciones de emergencia (COE) móviles.</li>
+        <li>Respaldarlos con generadores diésel de alta capacidad y sistemas fotovoltaicos portátiles.</li>
+        <li>Mientras la red celular comercial siga fuera de servicio, instalar enlaces satelitales de emergencia, como Starlink y terminales BGAN.</li>
+        <li>Dar datos y telefonía IP a los equipos de respuesta.</li>
+      </ul>
+      <div class="tags"><span>COE móvil</span><span>Generadores</span><span>Fotovoltaico</span><span>Starlink · BGAN</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 4 · ETIQUETADO ============ -->
+<section class="t5" id="a4">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b1d5e"/><stop offset="1" stop-color="#6d3a7e"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s4)"/>
+      <g class="plx" data-sp="0.15" fill="#200d3d"><path d="M0 300 L260 226 L520 300 L800 220 L1080 300 L1320 240 L1440 296 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.4">
+        <g transform="translate(140 260)"><rect x="0" y="80" width="240" height="200" fill="#2a1247" stroke="#7e3fa8" stroke-width="3.5"/><path d="M-20 84 L120 -20 L260 84 Z" fill="#1c0b33" stroke="#7e3fa8" stroke-width="3.5"/><path d="M40 100 l32 42 l-18 32 l28 42" fill="none" stroke="#e84356" stroke-width="5.5" style="animation:crackGlow 2.5s ease-in-out infinite"/><rect x="30" y="170" width="46" height="56" fill="#f5a3c7" opacity=".55"/><rect x="140" y="160" width="60" height="120" fill="#1c0b33"/></g>
+        <g transform="translate(600 290)"><rect x="0" y="60" width="220" height="190" fill="#2a1247" stroke="#7e3fa8" stroke-width="3.5"/><path d="M-16 64 L110 -28 L236 64 Z" fill="#1c0b33" stroke="#7e3fa8" stroke-width="3.5"/><path d="M150 80 l-24 38 l22 32" fill="none" stroke="#f2b544" stroke-width="5.5" style="animation:crackGlow 2.5s .7s ease-in-out infinite"/><rect x="26" y="140" width="48" height="52" fill="#f5a3c7" opacity=".55"/></g>
+        <g transform="translate(1040 250)"><rect x="0" y="90" width="250" height="200" fill="#2a1247" stroke="#7e3fa8" stroke-width="3.5"/><path d="M-20 94 L125 -16 L270 94 Z" fill="#1c0b33" stroke="#7e3fa8" stroke-width="3.5"/><rect x="34" y="150" width="50" height="58" fill="#f5a3c7" opacity=".55"/><rect x="150" y="150" width="50" height="58" fill="#f5a3c7" opacity=".55"/></g>
+      </g>
+      <g class="plx" data-sp="0.45">
+        <g transform="translate(260 210) rotate(-8)" style="transform-origin:0 0;animation:tagIn .8s .3s both"><rect x="-36" y="-36" width="72" height="72" rx="12" fill="#e84356" stroke="#fff" stroke-width="4.5"/><rect x="-15" y="-15" width="30" height="30" fill="none" stroke="#fff" stroke-width="4.5"/></g>
+        <g transform="translate(710 236) rotate(6)" style="transform-origin:0 0;animation:tagIn .8s 1.2s both"><rect x="-36" y="-36" width="72" height="72" rx="12" fill="#f2b544" stroke="#fff" stroke-width="4.5"/><rect x="-15" y="-15" width="30" height="30" fill="none" stroke="#fff" stroke-width="4.5" transform="rotate(45)"/></g>
+        <g transform="translate(1166 196) rotate(-5)" style="transform-origin:0 0;animation:tagIn .8s 2.1s both"><circle r="38" fill="#3fbf7f" stroke="#fff" stroke-width="4.5"/><path d="M-16 0 l13 15 l23 -28" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/></g>
+      </g>
+      <g class="plx" data-sp="0.6">
+        <g transform="translate(480 420)">
+          <circle cx="0" cy="0" r="18" fill="#0d0518"/><path d="M-32 -13 a32 13 0 0 1 64 0 z" fill="#f2b544"/><rect x="32" y="-2" width="18" height="8" fill="#f2b544" rx="2"/><rect x="-14" y="16" width="28" height="68" rx="10" fill="#0d0518"/><rect x="12" y="30" width="36" height="46" rx="4" fill="#f5e6c8"/><path d="M18 40 h24 M18 50 h24 M18 60 h16" stroke="#3b1d5e" stroke-width="3" stroke-linecap="round"/>
+        </g>
+      </g>
+      <path d="M0 620 v-42 q330 -26 680 -7 q350 19 760 -7 v56 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena IV · Colores que salvan</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>IV</span></div><h3>Evaluación rápida de edificaciones y viviendas</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Evitar colapsos secundarios causados por vientos remanentes, inestabilidad de laderas o daños estructurales ocultos, e identificar los inmuebles seguros que puedan servir como refugios o centros médicos.</p>
+      <ul class="acts">
+        <li>Desplegar cuadrillas de ingenieros estructuristas y geotécnicos.</li>
+        <li>Aplicar un protocolo de etiquetado rápido de daños con tres códigos.</li>
+        <li>Rojo: colapso inminente y acceso prohibido.</li>
+        <li>Amarillo: ingreso restringido.</li>
+        <li>Verde: inmuebles estructuralmente seguros para su ocupación.</li>
+      </ul>
+      <div class="tags"><span>Estructuristas</span><span>Geotécnicos</span><span>Etiquetado</span><span>Refugios</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 5 · CADENA DE FRÍO ============ -->
+<section class="t6" id="a5">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2569"/><stop offset="1" stop-color="#7e4382"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s5)"/>
+      <g class="plx" data-sp="0.15" fill="#2a1247"><path d="M0 310 L300 230 L580 310 L880 226 L1180 310 L1440 240 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.4">
+        <g transform="translate(180 220)">
+          <rect width="620" height="280" rx="18" fill="#26516b" stroke="#a8d8f0" stroke-width="4.5"/>
+          <rect x="18" y="18" width="584" height="244" rx="12" fill="#3b1d5e" opacity=".95"/>
+          <g fill="none" stroke="#a8d8f0" stroke-width="3.5" opacity=".75">
+            <path d="M30 40 l45 0 M52 20 l0 45 M38 28 l28 28 M66 28 l-28 28"/>
+            <path d="M550 210 l45 0 M572 190 l0 45"/>
+          </g>
+          <g>
+            <rect x="70" y="90" width="54" height="110" rx="10" fill="#a8d8f0" opacity=".92" style="animation:glowPulse 2.8s ease-in-out infinite"/><rect x="83" y="72" width="28" height="20" rx="4" fill="#f2b544"/>
+            <rect x="170" y="110" width="54" height="90" rx="10" fill="#7fb0c9" opacity=".92" style="animation:glowPulse 2.8s .6s ease-in-out infinite"/><rect x="183" y="92" width="28" height="20" rx="4" fill="#f2b544"/>
+            <rect x="270" y="84" width="54" height="116" rx="10" fill="#a8d8f0" opacity=".92" style="animation:glowPulse 2.8s 1.2s ease-in-out infinite"/><rect x="283" y="66" width="28" height="20" rx="4" fill="#f2b544"/>
+            <rect x="370" y="116" width="54" height="84" rx="10" fill="#7fb0c9" opacity=".92" style="animation:glowPulse 2.8s 1.8s ease-in-out infinite"/><rect x="383" y="98" width="28" height="20" rx="4" fill="#f2b544"/>
+          </g>
+          <rect x="470" y="60" width="100" height="160" rx="10" fill="#200d3d" stroke="#7e3fa8" stroke-width="3"/>
+          <circle cx="520" cy="120" r="28" fill="none" stroke="#a8d8f0" stroke-width="4"/><path d="M520 120 l16 -20" stroke="#a8d8f0" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </g>
+      <g fill="#e0f4ff">
+        <circle cx="240" cy="200" r="4.2" style="animation:snowF 3.8s linear infinite"/><circle cx="380" cy="160" r="3.2" style="animation:snowF 4.8s .9s linear infinite"/>
+        <circle cx="520" cy="200" r="4.2" style="animation:snowF 4.2s .4s linear infinite"/><circle cx="660" cy="150" r="3.2" style="animation:snowF 5.2s 1.6s linear infinite"/>
+      </g>
+      <g class="plx" data-sp="0.55">
+        <g transform="translate(900 380)">
+          <rect width="200" height="120" rx="12" fill="#e8912d"/><rect x="18" y="18" width="64" height="46" rx="6" fill="#2a1247"/>
+          <circle cx="140" cy="42" r="13" fill="#a8d8f0" style="animation:flick 2.2s infinite"/><path d="M30 90 h140" stroke="#0d0518" stroke-width="10" opacity=".6"/>
+        </g>
+      </g>
+      <path d="M0 620 v-38 q310 -28 650 -9 q340 19 790 -6 v53 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena V · El frío guarda la vida</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>V</span></div><h3>Cadena de frío para insumos médicos y alimentos</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Evitar la pérdida masiva de medicamentos críticos, como vacunas e insulina, y de alimentos perecederos ante la falta generalizada de energía eléctrica.</p>
+      <ul class="acts">
+        <li>Trasladar el inventario farmacéutico de hospitales y clínicas a contenedores refrigerados móviles.</li>
+        <li>Alimentarlos con plantas de emergencia o conservarlos con hielo seco industrial.</li>
+        <li>Habilitar centros comunitarios de refrigeración temporal para que los pacientes crónicos conserven su medicación.</li>
+      </ul>
+      <div class="tags"><span>Contenedores</span><span>Vacunas</span><span>Insulina</span><span>Hielo seco</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 6 · RIESGOS ELÉCTRICOS ============ -->
+<section class="t7" id="a6">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5c2f74"/><stop offset="1" stop-color="#8f4c83"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s6)"/>
+      <g class="plx" data-sp="0.15" fill="#2a1247"><path d="M0 300 L280 224 L560 300 L860 220 L1160 300 L1440 236 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.4">
+        <g transform="translate(240 300) rotate(62)"><rect x="-10" y="0" width="20" height="300" fill="#1c0b33" rx="3"/><rect x="-48" y="26" width="96" height="13" fill="#1c0b33" rx="2"/></g>
+        <path d="M470 340 Q760 470 1060 420" fill="none" stroke="#0d0518" stroke-width="8"/>
+        <g style="animation:sparkF 2.8s linear infinite">
+          <g transform="translate(1060 418)" stroke="#ffe599" stroke-width="5.5" stroke-linecap="round" fill="none">
+            <path d="M0 0 l-22 -30 M0 0 l24 -26 M0 0 l-5 -38 M0 0 l30 8 M0 0 l-30 3"/>
+            <path d="M-10 -10 l15 20 M10 -15 l-20 18" stroke="#fff" stroke-width="3"/>
+          </g>
+        </g>
+        <ellipse cx="1060" cy="470" rx="140" ry="28" fill="#200d3d"/>
+        <ellipse cx="1060" cy="468" rx="140" ry="28" fill="none" stroke="#7e3fa8" stroke-width="3.5" opacity=".7"/>
+      </g>
+      <g class="plx" data-sp="0.5">
+        <g transform="translate(780 250)">
+          <rect width="92" height="152" rx="12" fill="#3b1d5e" stroke="#f2b544" stroke-width="4.5"/>
+          <circle cx="46" cy="52" r="28" fill="#1c0b33" stroke="#f2b544" stroke-width="3.5"/>
+          <g style="transform-origin:46px 52px;animation:switchFlip 4s ease-in-out infinite"><rect x="40" y="14" width="12" height="44" rx="6" fill="#e84356"/></g>
+          <circle cx="46" cy="114" r="10.5" fill="#3fbf7f" style="animation:glowPulse 4s ease-in-out infinite"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.55">
+        <g transform="translate(1180 330)">
+          <rect x="0" y="60" width="150" height="180" rx="40" fill="#e8912d"/><rect x="52" y="30" width="46" height="40" rx="8" fill="#3b1d5e"/>
+          <path d="M98 44 h34 v22" fill="none" stroke="#f2b544" stroke-width="8.5" stroke-linecap="round"/>
+          <circle cx="140" cy="66" r="12" fill="#f2b544" style="animation:flick 2.5s infinite"/><path d="M30 120 h90 M30 160 h90" stroke="#0d0518" stroke-width="8" opacity=".45"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.6" fill="#0d0518">
+        <g transform="translate(560 420)"><circle r="17"/><rect x="-13" y="16" width="26" height="64" rx="10"/><rect x="12" y="26" width="32" height="9" fill="#f2b544" rx="2"/></g>
+        <g transform="translate(660 440)"><circle r="17"/><rect x="-13" y="16" width="26" height="64" rx="10"/></g>
+      </g>
+      <path d="M0 620 v-40 q330 -28 670 -9 q340 19 770 -7 v56 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena VI · Apagar el peligro</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>VI</span></div><h3>Control de riesgos eléctricos e industriales secundarios</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Prevenir muertes por electrocución y explosiones causadas por fugas de gas o por daños en instalaciones industriales y de hidrocarburos.</p>
+      <ul class="acts">
+        <li>Brigadas técnico-eléctricas que seccionan, aíslan y desenergizan los circuitos caídos de media y baja tensión.</li>
+        <li>Atender primero los circuitos en contacto con encharcamientos o inundaciones.</li>
+        <li>Inspeccionar estaciones de servicio, tanques estacionarios de gas LP en edificios habitacionales y plantas industriales.</li>
+        <li>Detectar y sellar fugas a tiempo.</li>
+      </ul>
+      <div class="tags"><span>Desenergizar</span><span>Electrocución</span><span>Gas LP</span><span>Fugas selladas</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN 7 · RESIDUOS ============ -->
+<section class="t8" id="a7">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="s7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d3a7e"/><stop offset="1" stop-color="#c76b6e"/></linearGradient></defs>
+      <rect width="1440" height="620" fill="url(#s7)"/>
+      <circle cx="1160" cy="150" r="110" fill="#f2b544" opacity=".8"/><circle cx="1160" cy="150" r="110" fill="#ff8c42" opacity=".45" style="animation:glowPulse 6s ease-in-out infinite"/>
+      <g class="plx" data-sp="0.15" fill="#4a2569"><path d="M0 300 L280 230 L560 300 L860 226 L1160 300 L1440 238 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.3">
+        <path d="M760 340 h680 v280 h-680 z" fill="#8f4c83" opacity=".6"/>
+        <g fill="none" stroke="#f5a3c7" stroke-width="4.5" opacity=".75">
+          <g style="animation:waveX 6s linear infinite"><path d="M-720 430 q45 -12 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0"/></g>
+        </g>
+        <path d="M980 340 l30 -70 30 70 z" fill="#f5e6c8"/><path d="M1010 270 v70" stroke="#3b1d5e" stroke-width="4"/><path d="M1010 290 l70 24 -70 16 z" fill="#e84356"/>
+      </g>
+      <g class="plx" data-sp="0.5">
+        <g transform="translate(120 300)">
+          <g style="transform-origin:210px 300px;animation:rubbleDown 6s ease-in-out infinite">
+            <path d="M0 300 L60 180 L120 230 L190 90 L260 200 L330 130 L420 300 Z" fill="#3b1d5e"/>
+            <path d="M60 300 L120 210 L200 260 L280 170 L360 300 Z" fill="#2a1247"/>
+            <g fill="#e8912d" opacity=".85">
+              <rect x="120" y="200" width="48" height="20" transform="rotate(-18 143 210)" rx="2"/>
+              <rect x="240" y="160" width="54" height="20" transform="rotate(12 266 170)" rx="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.6" style="animation:craneBob 3.5s ease-in-out infinite">
+        <g transform="translate(560 330)">
+          <rect x="0" y="40" width="240" height="160" rx="16" fill="#e8912d"/>
+          <path d="M0 80 h240 M0 120 h240" stroke="#0d0518" stroke-width="10" opacity=".4"/>
+          <circle cx="70" cy="120" r="38" fill="#3b1d5e"/>
+          <g style="transform-origin:70px 120px;animation:spinR 1.5s linear infinite">
+            <path d="M70 120 m-6 0 l-28 -8 4 15 z M70 120 m6 0 l28 8 -4 -15 z M70 120 m0 -6 l8 -28 -15 4 z M70 120 m0 6 l-8 28 15 -4 z" fill="#f2b544"/>
+          </g>
+          <circle cx="166" cy="120" r="38" fill="#3b1d5e"/>
+          <g style="transform-origin:166px 120px;animation:spin 1.5s linear infinite">
+            <path d="M166 120 m-6 0 l-28 -8 4 15 z M166 120 m6 0 l28 8 -4 -15 z M166 120 m0 -6 l8 -28 -15 4 z M166 120 m0 6 l-8 28 15 -4 z" fill="#f2b544"/>
+          </g>
+          <rect x="-60" y="90" width="60" height="26" fill="#3b1d5e" rx="4"/>
+          <path d="M-60 90 l-42 -14 v56 l42 -14 z" fill="#2a1247"/>
+          <circle cx="46" cy="212" r="16" fill="#0d0518"/><circle cx="194" cy="212" r="16" fill="#0d0518"/>
+        </g>
+      </g>
+      <path d="M0 620 v-38 q340 -26 710 -8 q370 18 730 -6 v50 z" fill="#0d0518"/>
+    </svg>
+    <div class="cap serif">Escena VII · La bahía respira</div>
+  </div>
+  <div class="wrap">
+    <article class="card rv">
+      <div class="card-head"><div class="gem"><span>VII</span></div><h3>Disposición segura de residuos sólidos y escombros</h3></div>
+      <p class="obj"><strong>Objetivo.</strong> Evitar que la vía pública se sature, que proliferen vectores de infección y que la basura arrastrada por las escorrentías contamine los cuerpos de agua y la bahía.</p>
+      <ul class="acts">
+        <li>Establecer macrocentros temporales de acopio y transferencia.</li>
+        <li>Recibir escombros, arbolado caído y restos de construcciones.</li>
+        <li>Procesar los residuos de forma selectiva con trituradoras móviles.</li>
+        <li>Reducir su volumen y liberar las vías de comunicación urbana.</li>
+      </ul>
+      <div class="tags"><span>Macrocentros</span><span>Trituradoras</span><span>Acopio</span><span>Bahía limpia</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CIERRE: AMANECER ============ -->
+<section class="t9" id="fin">
+  <div class="scene" style="height:clamp(380px,36vw,540px)" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4c83"/><stop offset=".55" stop-color="#c76b6e"/><stop offset="1" stop-color="#e88a63"/></linearGradient>
+        <linearGradient id="seaF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e88a63"/><stop offset="1" stop-color="#5c2f74"/></linearGradient>
+      </defs>
+      <rect width="1440" height="620" fill="url(#skyF)"/>
+      <g class="plx" data-sp="0.1" style="animation:bob 8s ease-in-out infinite">
+        <circle cx="720" cy="330" r="150" fill="#ffe299"/>
+        <circle cx="720" cy="330" r="150" fill="#ff8c42" opacity=".5" style="animation:glowPulse 6s ease-in-out infinite"/>
+        <g stroke="#ffe299" stroke-width="8" stroke-linecap="round" opacity=".85">
+          <path d="M720 110 v-52 M540 190 l-38 -38 M900 190 l38 -38 M460 330 h-62 M980 330 h62"/>
+        </g>
+      </g>
+      <g class="plx" data-sp="0.2" fill="#7e4382" opacity=".85"><path d="M0 340 L300 280 L600 340 L920 276 L1240 340 L1440 290 L1440 620 L0 620 Z"/></g>
+      <g class="plx" data-sp="0.3">
+        <path d="M0 380 h1440 v240 h-1440 z" fill="url(#seaF)"/>
+        <g fill="none" stroke="#ffe299" stroke-width="4" opacity=".7"><g style="animation:waveX 8s linear infinite"><path d="M-720 440 q45 -10 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0"/></g></g>
+        <g fill="none" stroke="#f5a3c7" stroke-width="4" opacity=".55"><g style="animation:waveX 11s linear infinite reverse"><path d="M-720 510 q45 -8 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0"/></g></g>
+        <g transform="translate(1180 240)">
+          <path d="M0 140 L22 0 L58 0 L80 140 Z" fill="#2a1247"/>
+          <rect x="16" y="-22" width="48" height="24" rx="6" fill="#f2b544" style="animation:flick 3.5s infinite"/>
+          <circle cx="40" cy="-10" r="48" fill="#ffe299" opacity=".35" style="animation:glowPulse 4s ease-in-out infinite"/>
+        </g>
+        <g style="animation:bob 5s ease-in-out infinite">
+          <g transform="translate(420 430)">
+            <path d="M0 40 h150 l-24 34 h-102 z" fill="#2a1247"/>
+            <path d="M70 40 v-132" stroke="#2a1247" stroke-width="6" stroke-linecap="round"/>
+            <path d="M76 -88 l86 68 -86 20 z" fill="#f5e6c8"/>
+            <path d="M64 -72 l-60 62 60 14 z" fill="#f5a3c7"/>
+          </g>
+        </g>
+      </g>
+      <path d="M0 620 v-40 q370 -26 730 -8 q360 18 710 -6 v54 z" fill="#1c0b33"/>
+    </svg>
+  </div>
+  <div class="wrap closer">
+    <p class="eyebrow serif rv">Epílogo · Amanecer</p>
+    <div class="sunline rv"></div>
+    <h2 class="phrase rv">Reabrir · Abastecer<br>Coordinar · Proteger</h2>
+    <p class="rv">Siete acciones técnicas, una ventana de 24 a 72 horas: estabilizar Acapulco para que la ciudad vuelva a levantarse.</p>
+  </div>
+</section>
+
+<footer class="serif">ACAPULCO · PLAN DE INTERVENCIÓN POSDESASTRE · INGENIERÍA DE EMERGENCIA</footer>
+
+<script>
+(function(){
+  'use strict';
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var bar = document.getElementById('progress');
+  function onScrollBar(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  var cv = document.getElementById('rain'), ctx = cv.getContext('2d'), drops = [];
+  function sizeRain(){
+    var r = cv.parentElement.getBoundingClientRect();
+    cv.width = r.width; cv.height = r.height;
+  }
+  function initDrops(){
+    drops = [];
+    var n = Math.min(180, Math.floor(cv.width / 5));
+    for (var i = 0; i < n; i++) drops.push({x:Math.random()*cv.width, y:Math.random()*cv.height, l:12+Math.random()*20, s:10+Math.random()*10, o:.15+Math.random()*.35});
+  }
+  function drawRain(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.strokeStyle = '#c9b3e6'; ctx.lineWidth = 1.2; ctx.lineCap = 'round';
+    for (var i = 0; i < drops.length; i++){
+      var d = drops[i];
+      ctx.globalAlpha = d.o;
+      ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - d.l*.35, d.y + d.l); ctx.stroke();
+      d.x -= d.s*.35; d.y += d.s;
+      if (d.y > cv.height){ d.y = -20; d.x = Math.random()*(cv.width+100); }
+      if (d.x < -20) d.x = cv.width + 10;
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  var flash = document.getElementById('flash'), bolt = document.getElementById('bolt'), heroVisible = true;
+  function lightning(){
+    if (!heroVisible || RM) return;
+    bolt.style.opacity = .95; flash.style.opacity = .35;
+    setTimeout(function(){ flash.style.opacity = 0; }, 90);
+    setTimeout(function(){ bolt.style.opacity = 0; }, 140);
+    setTimeout(function(){ flash.style.opacity = .22; }, 220);
+    setTimeout(function(){ flash.style.opacity = 0; }, 310);
+    setTimeout(lightning, 2800 + Math.random()*4200);
+  }
+
+  var layers = Array.prototype.slice.call(document.querySelectorAll('.plx'));
+  var ticking = false;
+  function parallax(){
+    var vh = window.innerHeight;
+    for (var i = 0; i < layers.length; i++){
+      var el = layers[i], r = el.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) continue;
+      var sp = parseFloat(el.getAttribute('data-sp')) || .3;
+      var off = (r.top + r.height/2 - vh/2) * sp * -.12;
+      el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
+    }
+    ticking = false;
+  }
+  function onScroll(){
+    onScrollBar();
+    if (!RM && !ticking){ ticking = true; requestAnimationFrame(parallax); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){ sizeRain(); initDrops(); onScroll(); }, {passive:true});
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('on');
+      e.target.querySelectorAll('.cnt').forEach(runCounter);
+      io.unobserve(e.target);
+    });
+  }, {threshold:.18});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  function runCounter(el){
+    if (el.dataset.done) return; el.dataset.done = 1;
+    if (RM){ el.textContent = el.dataset.to; return; }
+    var to = +el.dataset.to, t0 = performance.now(), dur = 1400;
+    (function step(t){
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  var hero = document.querySelector('.hero');
+  new IntersectionObserver(function(en){
+    heroVisible = en[0].isIntersecting;
+    if (heroVisible) lightning();
+  }, {threshold:.05}).observe(hero);
+
+  sizeRain(); initDrops(); onScroll();
+  if (!RM){
+    (function loop(){ drawRain(); requestAnimationFrame(loop); })();
+    setTimeout(lightning, 1600);
+  } else {
+    drawRain();
+  }
+})();
+</script>
+</body>
+</html>
